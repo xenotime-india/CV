@@ -8,7 +8,7 @@ class Header extends React.Component {
       <div className=" top-heading">
         <h1 className="user-name">Sandeep Kumar</h1>
         <h5 className="sub-heading">
-          Technical Architect | Full Stack Developer | Programming Geek
+          Platform Architect | Full Stack Developer | Programming Geek
         </h5>
         <div className="half-line" />
         <div className="" />

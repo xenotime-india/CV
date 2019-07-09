@@ -5,19 +5,13 @@ import './../styles/init.scss'
 import 'font-awesome/css/font-awesome.css'
 
 class Template extends React.Component {
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
-  componentDidUpdate() {
-  }
+  componentDidUpdate() {}
 
   render() {
     const { location, children } = this.props
-    return (
-      <div>
-        {children()}
-      </div>
-    )
+    return <div>{children()}</div>
   }
 }
 

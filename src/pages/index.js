@@ -11,6 +11,7 @@ import Company from '../components/Company'
 class BlogIndex extends React.Component {
   render() {
     const site = get(this, 'props.data.site.siteMetadata')
+    const todProjects = get(this, 'props.data.todProjects.files')
     const appirioProjects = get(this, 'props.data.appirioProjects.files')
     const metacubeProjects = get(this, 'props.data.metacubeProjects.files')
     const xtremeProjects = get(this, 'props.data.xtremeProjects.files')
@@ -39,12 +40,14 @@ class BlogIndex extends React.Component {
             },
           ]}
         />
-        <div className="bg">
-          <div className="top" />
-        </div>
-        <div className="container body-container">
-          <div className="row-container page">
-            <Page1LeftPanel skills={skills} infos={info} />
+        <div className="body-container">
+          <div className="row-container sheet">
+            <Page1LeftPanel
+              skills={skills}
+              infos={info}
+              certifications={certifications}
+            />
+
             <div className="right-col">
               <Header />
               <div className="resume-main-content">
@@ -57,22 +60,40 @@ class BlogIndex extends React.Component {
                   </h2>
                 </div>
                 <Company
+                  projects={todProjects}
+                  info={{
+                    title: 'Platform Architect',
+                    name: 'Traction On Demand India Private Limited',
+                    date: '06/2019 – Present',
+                    location: 'Jaipur, India',
+                  }}
+                />
+                <Company
+                  start={0}
+                  end={2}
                   projects={appirioProjects}
                   info={{
                     title: 'Technical Architect | Principle Consultant',
                     name: 'Appirio India Private Limited',
-                    date: '12/2013 – Present',
+                    date: '12/2013 – 06/2019',
                     location: 'Jaipur, India',
                   }}
                 />
               </div>
             </div>
           </div>
-          <div className="row-container page">
-            <Page2LeftPanel certifications={certifications} />
+          <div className="row-container sheet">
+            <Page2LeftPanel
+              skills={skills}
+              infos={info}
+              certifications={certifications}
+            />
             <div className="right-col">
               <div className="resume-main-content">
+                <Company start={3} projects={appirioProjects} />
                 <Company
+                  start={0}
+                  end={2}
                   projects={metacubeProjects}
                   info={{
                     title: 'Senior Software Engineer',
@@ -81,7 +102,14 @@ class BlogIndex extends React.Component {
                     location: 'Jaipur, India',
                   }}
                 />
-
+              </div>
+            </div>
+          </div>
+          <div className="row-container sheet">
+            <div className="left-col" />
+            <div className="right-col">
+              <div className="resume-main-content">
+                <Company start={3} projects={metacubeProjects} />
                 <Company
                   projects={xtremeProjects}
                   info={{
@@ -91,7 +119,6 @@ class BlogIndex extends React.Component {
                     location: 'Jaipur, India',
                   }}
                 />
-
                 <Company
                   projects={aptechProjects}
                   info={{
@@ -101,7 +128,6 @@ class BlogIndex extends React.Component {
                     location: 'Alwar, India',
                   }}
                 />
-
                 <div className="main-heading">
                   <h2 className="">
                     <span className="icon">
@@ -176,6 +202,23 @@ export const pageQuery = graphql`
           string
           link
           icon
+        }
+      }
+    }
+    todProjects: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/(src/docs/projects/tod)//i" } }
+      sort: { order: ASC, fields: [frontmatter___order] }
+    ) {
+      files: edges {
+        file: node {
+          html
+          fileAbsolutePath
+          frontmatter {
+            order
+            url
+            company
+            companySiteUrl
+          }
         }
       }
     }
